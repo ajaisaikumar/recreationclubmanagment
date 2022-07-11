@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cstring>
 using namespace std;
 
 fstream f1, f2, f3, f4;
@@ -128,7 +129,7 @@ public:
     {
         return facilities;
     }
-    int clubno()
+    int getclubno()
     {
         return clubno;
     }
@@ -138,23 +139,23 @@ rec_club c1;
 void savemember()
 {
     m1.createmember();
-    c1.rec_club1(m1.getname(), m1.getphno(), m1.clubno(), m1.getfacility());
+    c1.rec_club1(m1.getname(), m1.getphno(), m1.getclubno(), m1.getfacility());
     f1.open("newdata.dat", ios::out | ios::app);
-    if (m1.clubno() == 1)
+    if (m1.getclubno() == 1)
     {
         f2.open("graciusclub.dat", ios::out | ios::app);
         f1.write((char *)&m1, sizeof(m1));
         f2.write((char *)&c1, sizeof(c1));
         f2.close();
     }
-    if (m1.clubno() == 2)
+    if (m1.getclubno() == 2)
     {
         f3.open("uchihaclub.dat", ios::out | ios::app);
         f1.write((char *)&m1, sizeof(m1));
         f3.write((char *)&c1, sizeof(c1));
         f3.close();
     }
-    if (m1.clubno() == 3)
+    if (m1.getclubno() == 3)
     {
         f4.open("xebecclub.dat", ios::out | ios::app);
         f1.write((char *)&m1, sizeof(m1));
@@ -224,7 +225,7 @@ int gettingclubno(long int number)
     {
         if (m1.getphno() == number)
         {
-            return m1.clubno();
+            return m1.getclubno();
         }
     }
 }
@@ -438,14 +439,14 @@ void users()
 
 int main()
 {
-    int i, k;
-    cout << "select MODE" << endl
-         << "1.member" << endl
-         << "2.club management" << endl;
-    cin >> i;
+    int i;
 
     do
     {
+        cout << "select MODE" << endl
+             << "1.member" << endl
+             << "2.club management" << endl;
+        cin >> i;
         if (i == 1)
         {
             users();
