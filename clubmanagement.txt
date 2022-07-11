@@ -10,23 +10,29 @@ class rec_club
 private:
     int clubno;
     char mem_name[50], facilities[50];
-    long int phno;
+    long long int phno;
+    int memid;
 
 public:
-    void rec_club1(char arr[], long int phn, int clbno, char facility[])
+    void rec_club1(char arr[], long long int phn, int clbno, char facility[],int memno)
     {
         phno = phn;
         clubno = clbno;
         strcpy(mem_name, arr);
         strcpy(facilities, facility);
+        memid=memno;
     }
     void showmem()
     {
-        cout << mem_name << "          " << phno << "          " << facilities << endl;
+        cout << mem_name << "          " << phno << "          " << facilities <<"          "<<memid<<endl;
     }
-    long int getphn_no()
+    long long int getphn_no()
     {
         return phno;
+    }
+    int get_memid()
+    {
+        return memid;
     }
 };
 
@@ -34,8 +40,8 @@ class member
 {
 private:
     char name[50];
-    long int phno;
-    int age;
+    long long int phno;
+    int age,memid;
     char clubname[50], facilities[50];
     int clubno;
 
@@ -46,9 +52,10 @@ public:
         cout << "enter your fullname:";
         getchar();
         cin.getline(name, 50);
-        cout << endl
-             << "enter your phno:";
+        cout << endl<< "enter your phno:";
         cin >> phno;
+        cout<<endl<<"enter your member id:";
+        cin>>memid;
         cout << endl
              << "enter your age:";
         cin >> age;
@@ -81,7 +88,7 @@ public:
         default:
             cout << "enter a valid option" << endl;
         }
-        cout << "select the facilty"
+        cout << "select the facilty"<<endl
              << "1.gym" << endl
              << "2.golf" << endl
              << "3.tennis" << endl
@@ -115,9 +122,9 @@ public:
     }
     void showmember()
     {
-        cout << name << "          " << phno << "          " << clubname << "          " << facilities << endl;
+        cout << name << "          " << memid<< "          " << clubname << "          " << facilities << endl;
     }
-    long int getphno()
+    long long int getphno()
     {
         return phno;
     }
@@ -133,31 +140,35 @@ public:
     {
         return clubno;
     }
+    int get_memid()
+    {
+        return memid;
+    }
 };
 member m1;
 rec_club c1;
 void savemember()
 {
     m1.createmember();
-    c1.rec_club1(m1.getname(), m1.getphno(), m1.getclubno(), m1.getfacility());
-    f1.open("newdata.dat", ios::out | ios::app);
+    c1.rec_club1(m1.getname(), m1.getphno(), m1.getclubno(), m1.getfacility(),m1.get_memid());
+    f1.open("newdata.txt", ios::out | ios::app);
     if (m1.getclubno() == 1)
     {
-        f2.open("graciusclub.dat", ios::out | ios::app);
+        f2.open("graciusclub.txt", ios::out | ios::app);
         f1.write((char *)&m1, sizeof(m1));
         f2.write((char *)&c1, sizeof(c1));
         f2.close();
     }
     if (m1.getclubno() == 2)
     {
-        f3.open("uchihaclub.dat", ios::out | ios::app);
+        f3.open("uchihaclub.txt", ios::out | ios::app);
         f1.write((char *)&m1, sizeof(m1));
         f3.write((char *)&c1, sizeof(c1));
         f3.close();
     }
     if (m1.getclubno() == 3)
     {
-        f4.open("xebecclub.dat", ios::out | ios::app);
+        f4.open("xebecclub.txt", ios::out | ios::app);
         f1.write((char *)&m1, sizeof(m1));
         f4.write((char *)&c1, sizeof(c1));
         f4.close();
@@ -166,46 +177,45 @@ void savemember()
 }
 void showall(int n)
 {
-    system("cls");
+    
     cout << "RECORDS" << endl;
     if (n == 1)
     {
-        f2.open("graciasclub.dat", ios::in);
+        f2.open("graciasclub.txt", ios::in);
         while (f2.read((char *)&c1, sizeof(c1)))
         {
             c1.showmem();
-            getchar();
+            
         }
         f2.close();
     }
     if (n == 2)
     {
-        f3.open("uchihaclub.dat", ios::in);
+        f3.open("uchihaclub.txt", ios::in);
         while (f3.read((char *)&c1, sizeof(c1)))
         {
             c1.showmem();
-            getchar();
+            
         }
         f3.close();
     }
     if (n == 3)
     {
-        f4.open("xebecclub.dat", ios::in);
+        f4.open("xebecclub.txt", ios::in);
         while (f4.read((char *)&c1, sizeof(c1)))
         {
             c1.showmem();
-            getchar();
         }
         f4.close();
     }
 }
-void display_record(long int phnno)
+void display_record(int memno)
 {
     bool found = false;
-    f1.open("newdata.dat", ios::in);
+    f1.open("newdata.txt", ios::in);
     while (f1.read((char *)&m1, sizeof(m1)))
     {
-        if (m1.getphno() == phnno)
+        if (m1.get_memid() == memno)
         {
             system("cls");
             m1.showmember();
@@ -218,12 +228,12 @@ void display_record(long int phnno)
         cout << "member phone number not found." << endl;
     }
 }
-int gettingclubno(long int number)
+int gettingclubno( int number)
 {
-    f1.open("newdata.dat", ios::in | ios::out);
+    f1.open("newdata.txt", ios::in | ios::out);
     while (f1.read((char *)&m1, sizeof(m1)))
     {
-        if (m1.getphno() == number)
+        if (m1.get_memid() == number)
         {
             return m1.getclubno();
         }
@@ -231,26 +241,26 @@ int gettingclubno(long int number)
 }
 void deletes()
 {
-    long int number;
-    cout << "enter the phone number:";
+     int number;
+    cout << "enter the member id:";
     cin >> number;
-    f1.open("newdata.dat", ios::in | ios::out);
-    f3.open("uchihaclub.dat", ios::in | ios::out);
-    f4.open("xebecclub.dat", ios::in | ios::out);
+    f1.open("newdata.txt", ios::in | ios::out);
+    f3.open("uchihaclub.txt", ios::in | ios::out);
+    f4.open("xebecclub.txt", ios::in | ios::out);
     fstream fp, ft;
-    fp.open("temp.dat", ios::out);
-    ft.open("temp2.dat", ios::out);
+    fp.open("temp.txt", ios::out);
+    ft.open("temp2.txt", ios::out);
 
     while (f1.read((char *)&m1, sizeof(m1)))
     {
-        if (m1.getphno() != number)
+        if (m1.get_memid() != number)
         {
             fp.write((char *)&m1, sizeof(m1));
         }
     }
     if (gettingclubno(number) == 1)
     {
-        f2.open("graciasclub.dat", ios::in | ios::out);
+        f2.open("graciasclub.txt", ios::in | ios::out);
         while (f2.read((char *)&c1, sizeof(c1)))
         {
             if (c1.getphn_no() != number)
@@ -259,12 +269,12 @@ void deletes()
             }
         }
         f2.close();
-        remove("graciasclub.dat");
-        rename("temp2.dat", "graciasclub.dat");
+        remove("graciasclub.txt");
+        rename("temp2.txt", "graciasclub.txt");
     }
     if (gettingclubno(number) == 2)
     {
-        f3.open("uchihaclub.dat", ios::in | ios::out);
+        f3.open("uchihaclub.txt", ios::in | ios::out);
         while (f3.read((char *)&c1, sizeof(c1)))
         {
             if (c1.getphn_no() != number)
@@ -273,12 +283,12 @@ void deletes()
             }
         }
         f3.close();
-        remove("xebecclub.dat");
-        rename("temp2.dat", "uchihaclub.dat");
+        remove("uchihaclub.txt");
+        rename("temp2.txt", "uchihaclub.txt");
     }
     if (gettingclubno(number) == 3)
     {
-        f4.open("uchihaclub.dat", ios::in | ios::out);
+        f4.open("xebecclub.txt", ios::in | ios::out);
         while (f4.read((char *)&c1, sizeof(c1)))
         {
             if (c1.getphn_no() != number)
@@ -287,14 +297,14 @@ void deletes()
             }
         }
         f4.close();
-        remove("xebecclub.dat");
-        rename("temp2.dat", "xebecclub.dat");
+        remove("xebecclub.txt");
+        rename("temp2.txt", "xebecclub.txt");
     }
     fp.close();
     f1.close();
     ft.close();
-    remove("newdata.dat");
-    rename("temp.dat", "newdata.dat");
+    remove("newdata.txt");
+    rename("temp.txt", "newdata.txt");
 }
 void managementactivities(int a)
 {
@@ -313,8 +323,8 @@ void managementactivities(int a)
     }
     case 2:
     {
-        long int number;
-        cout << "enter the phone number:";
+        int number;
+        cout << "enter the member id:";
         cin >> number;
         display_record(number);
         break;
@@ -420,18 +430,20 @@ void users()
     {
     case 1:
     {
-        long int phno;
-        cout << "enter your phone number:";
-        cin >> phno;
-        display_record(phno);
+        int memid;
+        cout << "enter your member id:";
+        cin >> memid;
+        display_record(memid);
         break;
     }
     case 2:
     {
         savemember();
+        break;
     }
     case 3:
         system("cls");
+        break;
     default:
         cout << "enter a valid option" << endl;
     }
