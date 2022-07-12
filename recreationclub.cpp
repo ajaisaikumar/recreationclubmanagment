@@ -9,22 +9,25 @@ class rec_club
 {
 private:
     int clubno;
-    char mem_name[50], facilities[50];
+    char mem_name[50], facilities1[50]="-",facilities2[50]="-",facilities3[50]="-",facilities4[50]="-";
     long long int phno;
     int memid;
 
 public:
-    void rec_club1(char arr[], long long int phn, int clbno, char facility[], int memno)
+    void rec_club1(char arr[], long long int phn, int clbno, char facility1[],char facility2[],char facility3[],char facility4[], int memno)
     {
         phno = phn;
         clubno = clbno;
         strcpy(mem_name, arr);
-        strcpy(facilities, facility);
+        strcpy(facilities1, facility1);
+        strcpy(facilities2, facility2);
+        strcpy(facilities3, facility3);
+        strcpy(facilities4, facility4);
         memid = memno;
     }
     void showmem()
     {
-        cout << mem_name << "          " << phno << "          " << facilities << "          " << memid << endl;
+        cout << mem_name << "          " << phno << "          " << facilities1 << "          "<< facilities2 << "          "<< facilities3 << "          " << facilities4 << "          "  << memid << endl;
     }
     long long int getphn_no()
     {
@@ -42,7 +45,7 @@ private:
     char name[50];
     long long int phno;
     int age, memid;
-    char clubname[50], facilities[50];
+    char clubname[50],facilities1[50]="-",facilities2[50]="-",facilities3[50]="-",facilities4[50]="-";
     int clubno;
 
 public:
@@ -90,41 +93,55 @@ public:
         default:
             cout << "enter a valid option" << endl;
         }
+        do{
+
+        
         cout << "select the facilty" << endl
              << "1.gym" << endl
              << "2.golf" << endl
              << "3.tennis" << endl
-             << "4.badmiton" << endl;
+             << "4.badmiton" <<endl<<"enter any other number to exit"<< endl;
         cin >> ch2;
         switch (ch2)
         {
         case 1:
         {
-            strcpy(facilities, "gym");
+           
+            strcpy(facilities1, "gym");
+           
             break;
         }
         case 2:
         {
-            strcpy(facilities, "golf");
+            
+            strcpy(facilities2, "golf");
+            
             break;
         }
         case 3:
         {
-            strcpy(facilities, "tennis");
+            strcpy(facilities3, "tennis");
+            
             break;
         }
         case 4:
         {
-            strcpy(facilities, "badmiton");
+            
+            strcpy(facilities4, "badmiton");
+            
             break;
         }
         default:
             cout << "enter a valid option" << endl;
         }
+        } while(ch2>0 && ch2<5);
     }
     void showmember()
     {
-        cout << name << "          " << memid << "          " << clubname << "          " << facilities << endl;
+        cout << name << "          " << memid << "          " 
+        << clubname << "          " << facilities1 << "          "
+         << facilities2<<"         "<< facilities3 << "          "
+         << facilities4 << endl;
     }
     long long int getphno()
     {
@@ -134,9 +151,21 @@ public:
     {
         return name;
     }
-    char *getfacility()
+    char *getfacility1()
     {
-        return facilities;
+        return facilities1;
+    }
+     char *getfacility2()
+    {
+        return facilities2;
+    }
+     char *getfacility3()
+    {
+        return facilities3;
+    }
+     char *getfacility4()
+    {
+        return facilities4;
     }
     int getclubno()
     {
@@ -152,7 +181,7 @@ rec_club c1;
 void savemember()
 {
     m1.createmember();
-    c1.rec_club1(m1.getname(), m1.getphno(), m1.getclubno(), m1.getfacility(), m1.get_memid());
+    c1.rec_club1(m1.getname(), m1.getphno(), m1.getclubno(), m1.getfacility1(),m1.getfacility2(),m1.getfacility3(),m1.getfacility4(), m1.get_memid());
     f1.open("newdata.txt", ios::out | ios::app);
     if (m1.getclubno() == 1)
     {
@@ -334,7 +363,7 @@ void managementactivities(int a)
     }
     case 4:
     {
-        club();
+        exit(0);
         break;
     }
     default:
@@ -436,6 +465,7 @@ void users()
     }
     case 2:
     {
+        cout<<"RULES:"<<endl<<"A MEMBER CAN REGISTER IN ANY ONE CLUB ONLY BUT CAN REGISTER IN MULTIPLE FACILITIES"<<endl<<"THANK YOU"<<endl;
         savemember();
         break;
     }
