@@ -1,20 +1,22 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <iomanip>
 using namespace std;
 
 fstream f1, f2, f3, f4;
+const auto SCREEN_WIDTH = 150;
 
 class rec_club
 {
 private:
     int clubno;
-    char mem_name[50], facilities1[50]="-",facilities2[50]="-",facilities3[50]="-",facilities4[50]="-";
+    char mem_name[50], facilities1[50] = "-", facilities2[50] = "-", facilities3[50] = "-", facilities4[50] = "-";
     long long int phno;
     int memid;
 
 public:
-    void rec_club1(char arr[], long long int phn, int clbno, char facility1[],char facility2[],char facility3[],char facility4[], int memno)
+    void rec_club1(char arr[], long long int phn, int clbno, char facility1[], char facility2[], char facility3[], char facility4[], int memno)
     {
         phno = phn;
         clubno = clbno;
@@ -27,7 +29,9 @@ public:
     }
     void showmem()
     {
-        cout << mem_name << "          " << phno << "          " << facilities1 << "          "<< facilities2 << "          "<< facilities3 << "          " << facilities4 << "          "  << memid << endl;
+
+        cout << setw(20) << mem_name << setw(20) << phno << setw(20) << facilities1 << setw(20) << facilities2 << setw(20)
+             << facilities3 << setw(20) << facilities4 << setw(20) << memid << endl;
     }
     long long int getphn_no()
     {
@@ -45,7 +49,7 @@ private:
     char name[50];
     long long int phno;
     int age, memid;
-    char clubname[50],facilities1[50]="-",facilities2[50]="-",facilities3[50]="-",facilities4[50]="-";
+    char clubname[50], facilities1[50] = "-", facilities2[50] = "-", facilities3[50] = "-", facilities4[50] = "-";
     int clubno;
 
 public:
@@ -70,6 +74,7 @@ public:
              << "3.xebec club\n";
         cout << "enter the choice\n ";
         cin >> ch;
+        cout << endl;
         switch (ch)
         {
         case 1:
@@ -93,55 +98,57 @@ public:
         default:
             cout << "enter a valid option" << endl;
         }
-        do{
+        do
+        {
 
-        
-        cout << "select the facilty" << endl
-             << "1.gym" << endl
-             << "2.golf" << endl
-             << "3.tennis" << endl
-             << "4.badmiton" <<endl<<"enter any other number to exit"<< endl;
-        cin >> ch2;
-        switch (ch2)
-        {
-        case 1:
-        {
-           
-            strcpy(facilities1, "gym");
-           
-            break;
-        }
-        case 2:
-        {
-            
-            strcpy(facilities2, "golf");
-            
-            break;
-        }
-        case 3:
-        {
-            strcpy(facilities3, "tennis");
-            
-            break;
-        }
-        case 4:
-        {
-            
-            strcpy(facilities4, "badmiton");
-            
-            break;
-        }
-        default:
-            cout << "enter a valid option" << endl;
-        }
-        } while(ch2>0 && ch2<5);
+            cout << "select the facilty" << endl
+                 << "1.gym" << endl
+                 << "2.golf" << endl
+                 << "3.tennis" << endl
+                 << "4.badmiton" << endl
+                 << "enter any other number to exit" << endl;
+            cin >> ch2;
+            cout << endl;
+            switch (ch2)
+            {
+            case 1:
+            {
+
+                strcpy(facilities1, "gym");
+
+                break;
+            }
+            case 2:
+            {
+
+                strcpy(facilities2, "golf");
+
+                break;
+            }
+            case 3:
+            {
+                strcpy(facilities3, "tennis");
+
+                break;
+            }
+            case 4:
+            {
+
+                strcpy(facilities4, "badmiton");
+
+                break;
+            }
+            default:
+                cout << "enter a valid option" << endl;
+            }
+        } while (ch2 > 0 && ch2 < 5);
     }
     void showmember()
     {
-        cout << name << "          " << memid << "          " 
-        << clubname << "          " << facilities1 << "          "
-         << facilities2<<"         "<< facilities3 << "          "
-         << facilities4 << endl;
+        cout << setw(20) << name << setw(20) << memid << setw(20)
+             << clubname << setw(20) << facilities1 << setw(20)
+             << facilities2 << setw(20) << facilities3 << setw(20)
+             << facilities4 << endl;
     }
     long long int getphno()
     {
@@ -155,15 +162,15 @@ public:
     {
         return facilities1;
     }
-     char *getfacility2()
+    char *getfacility2()
     {
         return facilities2;
     }
-     char *getfacility3()
+    char *getfacility3()
     {
         return facilities3;
     }
-     char *getfacility4()
+    char *getfacility4()
     {
         return facilities4;
     }
@@ -181,7 +188,7 @@ rec_club c1;
 void savemember()
 {
     m1.createmember();
-    c1.rec_club1(m1.getname(), m1.getphno(), m1.getclubno(), m1.getfacility1(),m1.getfacility2(),m1.getfacility3(),m1.getfacility4(), m1.get_memid());
+    c1.rec_club1(m1.getname(), m1.getphno(), m1.getclubno(), m1.getfacility1(), m1.getfacility2(), m1.getfacility3(), m1.getfacility4(), m1.get_memid());
     f1.open("newdata.txt", ios::out | ios::app);
     if (m1.getclubno() == 1)
     {
@@ -205,11 +212,16 @@ void savemember()
         f4.close();
     }
     f1.close();
+    cout << setfill('*') << setw(SCREEN_WIDTH + 1) << " " << setfill(' ')
+         << endl;
 }
 void showall(int n)
 {
 
-    cout << "RECORDS" << endl;
+    cout << "RECORDS:" << endl;
+    cout << setfill('*') << setw(SCREEN_WIDTH + 1) << " " << setfill(' ')
+         << endl;
+    cout << endl;
     if (n == 1)
     {
         f2.open("graciasclub.txt", ios::in);
@@ -237,16 +249,23 @@ void showall(int n)
         }
         f4.close();
     }
+    cout << endl
+         << endl;
+    cout << setfill('*') << setw(SCREEN_WIDTH + 1) << " " << setfill(' ')
+         << endl;
+    cout << endl
+         << endl;
 }
 void display_record(long long int phnno)
 {
     bool found = false;
+    
     f1.open("newdata.txt", ios::in);
     while (f1.read((char *)&m1, sizeof(m1)))
     {
         if (m1.getphno() == phnno)
         {
-            system("cls");
+            
             m1.showmember();
             found = true;
         }
@@ -256,36 +275,48 @@ void display_record(long long int phnno)
     {
         cout << "member phone number not found." << endl;
     }
+    cout << setfill('*') << setw(SCREEN_WIDTH + 1) << " " << setfill(' ')
+         << endl;
 }
 int gettingclubno(long long int number)
 {
     f1.open("newdata.txt", ios::in | ios::out);
+    int a;
     while (f1.read((char *)&m1, sizeof(m1)))
     {
         if (m1.getphno() == number)
         {
-            return m1.getclubno();
+            
+            a=m1.getclubno();
         }
     }
+    f1.close();
+    return a;
+
+    
 }
 void deletes()
 {
     long long int number;
     cout << "enter the phone number:";
     cin >> number;
+    cout << endl;
+    int clubnumber;
+    clubnumber = gettingclubno(number);
+    fstream ff, ft;
     f1.open("newdata.txt", ios::in | ios::out);
-    fstream fp, ft;
-    fp.open("temp.txt", ios::out);
+    ff.open("temp1.txt", ios::out);
     ft.open("temp2.txt", ios::out);
 
     while (f1.read((char *)&m1, sizeof(m1)))
-    {
-        if (m1.getphno() != number)
         {
-            fp.write((char *)&m1, sizeof(m1));
+            if (m1.getphno() != number)
+            {
+                ff.write((char *)&m1, sizeof(m1));
+            }
         }
-    }
-    if (gettingclubno(number) == 1)
+  
+    if (clubnumber == 1)
     {
         f2.open("graciasclub.txt", ios::in | ios::out);
         while (f2.read((char *)&c1, sizeof(c1)))
@@ -296,10 +327,11 @@ void deletes()
             }
         }
         f2.close();
+        ft.close();
         remove("graciasclub.txt");
         rename("temp2.txt", "graciasclub.txt");
     }
-    if (gettingclubno(number) == 2)
+    if (clubnumber == 2)
     {
         f3.open("uchihaclub.txt", ios::in | ios::out);
         while (f3.read((char *)&c1, sizeof(c1)))
@@ -310,10 +342,11 @@ void deletes()
             }
         }
         f3.close();
+        ft.close();
         remove("uchihaclub.txt");
         rename("temp2.txt", "uchihaclub.txt");
     }
-    if (gettingclubno(number) == 3)
+    if (clubnumber == 3)
     {
         f4.open("xebecclub.txt", ios::in | ios::out);
         while (f4.read((char *)&c1, sizeof(c1)))
@@ -324,14 +357,17 @@ void deletes()
             }
         }
         f4.close();
+        ft.close();
         remove("xebecclub.txt");
         rename("temp2.txt", "xebecclub.txt");
     }
-    fp.close();
+    ff.close();
     f1.close();
-    ft.close();
     remove("newdata.txt");
-    rename("temp.txt", "newdata.txt");
+    rename("temp1.txt", "newdata.txt");
+    cout << "deleted" << endl;
+    cout << setfill('*') << setw(SCREEN_WIDTH + 1) << " " << setfill(' ')
+         << endl;
 }
 void managementactivities(int a)
 {
@@ -341,6 +377,7 @@ void managementactivities(int a)
          << "3.delete member" << endl
          << "4.go to main menu" << endl;
     cin >> i;
+    cout << endl;
     switch (i)
     {
     case 1:
@@ -353,6 +390,7 @@ void managementactivities(int a)
         long long int number;
         cout << "enter the phone number:";
         cin >> number;
+        cout << endl;
         display_record(number);
         break;
     }
@@ -381,6 +419,9 @@ void club()
          << "3.xebec club" << endl
          << "4.exit" << endl;
     cin >> i;
+    cout << endl;
+    cout << setfill('*') << setw(SCREEN_WIDTH + 1) << " " << setfill(' ')
+         << endl;
     switch (i)
     {
     case 1:
@@ -390,6 +431,7 @@ void club()
         cout << "GRACIAS CLUB" << endl;
         cout << "enter management id:";
         cin >> pwd;
+        cout << endl;
         if (pwd == pwd1)
         {
             managementactivities(1);
@@ -407,6 +449,7 @@ void club()
         cout << "UCHIHA CLUB" << endl;
         cout << "enter management id:";
         cin >> pwd;
+        cout << endl;
         if (pwd == pwd1)
         {
             managementactivities(2);
@@ -424,6 +467,7 @@ void club()
         cout << "XEBEC CLUB" << endl;
         cout << "enter management id:";
         cin >> pwd;
+        cout << endl;
         if (pwd == pwd1)
         {
             managementactivities(3);
@@ -444,15 +488,22 @@ void club()
         club();
     }
     }
+    cout << setfill('*') << setw(SCREEN_WIDTH + 1) << " " << setfill(' ')
+         << endl;
 }
 void users()
 {
     int i;
+    cout << setfill('*') << setw(SCREEN_WIDTH + 1) << " " << setfill(' ')
+         << endl;
     cout << "select option" << endl
          << "1.my club" << endl
          << "2.new registration" << endl
          << "3.exit" << endl;
     cin >> i;
+    cout << endl;
+    cout << setfill('*') << setw(SCREEN_WIDTH + 1) << " " << setfill(' ')
+         << endl;
     switch (i)
     {
     case 1:
@@ -460,12 +511,18 @@ void users()
         long long int phno;
         cout << "enter your phone number:";
         cin >> phno;
+        cout << endl;
+        cout << setfill('*') << setw(SCREEN_WIDTH + 1) << " " << setfill(' ')
+             << endl;
         display_record(phno);
         break;
     }
     case 2:
     {
-        cout<<"RULES:"<<endl<<"A MEMBER CAN REGISTER IN ANY ONE CLUB ONLY BUT CAN REGISTER IN MULTIPLE FACILITIES"<<endl<<"THANK YOU"<<endl;
+        cout << "RULES:" << endl
+             << "A MEMBER CAN REGISTER IN ANY ONE CLUB ONLY BUT CAN REGISTER IN MULTIPLE FACILITIES" << endl
+             << "THANK YOU" << endl;
+        cout << endl;
         savemember();
         break;
     }
@@ -489,6 +546,9 @@ int main()
              << "1.Member" << endl
              << "2.Club management" << endl;
         cin >> i;
+        cout << endl;
+        cout << setfill('*') << setw(SCREEN_WIDTH + 1) << " " << setfill(' ')
+             << endl;
         if (i == 1)
         {
             users();
