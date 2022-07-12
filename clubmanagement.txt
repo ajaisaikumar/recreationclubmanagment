@@ -14,17 +14,17 @@ private:
     int memid;
 
 public:
-    void rec_club1(char arr[], long long int phn, int clbno, char facility[],int memno)
+    void rec_club1(char arr[], long long int phn, int clbno, char facility[], int memno)
     {
         phno = phn;
         clubno = clbno;
         strcpy(mem_name, arr);
         strcpy(facilities, facility);
-        memid=memno;
+        memid = memno;
     }
     void showmem()
     {
-        cout << mem_name << "          " << phno << "          " << facilities <<"          "<<memid<<endl;
+        cout << mem_name << "          " << phno << "          " << facilities << "          " << memid << endl;
     }
     long long int getphn_no()
     {
@@ -41,7 +41,7 @@ class member
 private:
     char name[50];
     long long int phno;
-    int age,memid;
+    int age, memid;
     char clubname[50], facilities[50];
     int clubno;
 
@@ -52,10 +52,12 @@ public:
         cout << "enter your fullname:";
         getchar();
         cin.getline(name, 50);
-        cout << endl<< "enter your phno:";
+        cout << endl
+             << "enter your phno:";
         cin >> phno;
-        cout<<endl<<"enter your member id:";
-        cin>>memid;
+        cout << endl
+             << "enter your member id:";
+        cin >> memid;
         cout << endl
              << "enter your age:";
         cin >> age;
@@ -88,7 +90,7 @@ public:
         default:
             cout << "enter a valid option" << endl;
         }
-        cout << "select the facilty"<<endl
+        cout << "select the facilty" << endl
              << "1.gym" << endl
              << "2.golf" << endl
              << "3.tennis" << endl
@@ -122,7 +124,7 @@ public:
     }
     void showmember()
     {
-        cout << name << "          " << memid<< "          " << clubname << "          " << facilities << endl;
+        cout << name << "          " << memid << "          " << clubname << "          " << facilities << endl;
     }
     long long int getphno()
     {
@@ -150,7 +152,7 @@ rec_club c1;
 void savemember()
 {
     m1.createmember();
-    c1.rec_club1(m1.getname(), m1.getphno(), m1.getclubno(), m1.getfacility(),m1.get_memid());
+    c1.rec_club1(m1.getname(), m1.getphno(), m1.getclubno(), m1.getfacility(), m1.get_memid());
     f1.open("newdata.txt", ios::out | ios::app);
     if (m1.getclubno() == 1)
     {
@@ -177,7 +179,7 @@ void savemember()
 }
 void showall(int n)
 {
-    
+
     cout << "RECORDS" << endl;
     if (n == 1)
     {
@@ -185,7 +187,6 @@ void showall(int n)
         while (f2.read((char *)&c1, sizeof(c1)))
         {
             c1.showmem();
-            
         }
         f2.close();
     }
@@ -195,7 +196,6 @@ void showall(int n)
         while (f3.read((char *)&c1, sizeof(c1)))
         {
             c1.showmem();
-            
         }
         f3.close();
     }
@@ -241,12 +241,10 @@ int gettingclubno(long long int number)
 }
 void deletes()
 {
-    long long  int number;
+    long long int number;
     cout << "enter the phone number:";
     cin >> number;
     f1.open("newdata.txt", ios::in | ios::out);
-    f3.open("uchihaclub.txt", ios::in | ios::out);
-    f4.open("xebecclub.txt", ios::in | ios::out);
     fstream fp, ft;
     fp.open("temp.txt", ios::out);
     ft.open("temp2.txt", ios::out);
@@ -336,7 +334,7 @@ void managementactivities(int a)
     }
     case 4:
     {
-        system("cls");
+        club();
         break;
     }
     default:
@@ -409,7 +407,7 @@ void club()
     }
     case 4:
     {
-        system("cls");
+        exit(0);
     }
     default:
     {
@@ -442,8 +440,10 @@ void users()
         break;
     }
     case 3:
-        system("cls");
+    {
+        exit(0);
         break;
+    }
     default:
         cout << "enter a valid option" << endl;
     }
@@ -455,9 +455,9 @@ int main()
 
     do
     {
-        cout << "select MODE" << endl
-             << "1.member" << endl
-             << "2.club management" << endl;
+        cout << "SELECT MODE" << endl
+             << "1.Member" << endl
+             << "2.Club management" << endl;
         cin >> i;
         if (i == 1)
         {
