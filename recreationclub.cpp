@@ -245,8 +245,6 @@ void deletes()
     cout << "enter the phone number:";
     cin >> number;
     f1.open("newdata.txt", ios::in | ios::out);
-    f3.open("uchihaclub.txt", ios::in | ios::out);
-    f4.open("xebecclub.txt", ios::in | ios::out);
     fstream fp, ft;
     fp.open("temp.txt", ios::out);
     ft.open("temp2.txt", ios::out);
@@ -336,7 +334,7 @@ void managementactivities(int a)
     }
     case 4:
     {
-        system("cls");
+        club();
         break;
     }
     default:
@@ -409,7 +407,7 @@ void club()
     }
     case 4:
     {
-        system("cls");
+        exit(0);
     }
     default:
     {
@@ -442,8 +440,10 @@ void users()
         break;
     }
     case 3:
-        system("cls");
+    {
+        exit(0);
         break;
+    }
     default:
         cout << "enter a valid option" << endl;
     }
@@ -455,9 +455,9 @@ int main()
 
     do
     {
-        cout << "select MODE" << endl
-             << "1.member" << endl
-             << "2.club management" << endl;
+        cout << "SELECT MODE" << endl
+             << "1.Member" << endl
+             << "2.Club management" << endl;
         cin >> i;
         if (i == 1)
         {
