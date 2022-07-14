@@ -51,7 +51,7 @@ public:
        date_time = ctime(&now);
 
    cout << "The current date and time is: " << date_time << endl;
-        total = memid + "," + name + "," + age + "," + phno + "," + facilities1 + "," + facilities2 + "," + facilities3 + "," + facilities4 + "," + "\n";
+        total = memid + "," + name + "," + age + "," + phno + "," + facilities1 + "," + facilities2 + "," + facilities3 + "," + facilities4 + "," + date_time;
     }
     string get_totstr()
     {
