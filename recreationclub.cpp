@@ -6,7 +6,10 @@
 #include <iomanip>
 #include <time.h>
 #include <cstdlib>
+#include<vector>
 using namespace std;
+
+
 
 fstream f2, f3;
 const auto SCREEN_WIDTH = 150;
@@ -50,7 +53,7 @@ public:
 
        date_time = ctime(&now);
 
-   cout << "The current date and time is: " << date_time << endl;
+   cout << "you have registered to this club on: " << date_time << endl;
         total = memid + "," + name + "," + age + "," + phno + "," + facilities1 + "," + facilities2 + "," + facilities3 + "," + facilities4 + "," + date_time;
     }
     string get_totstr()
@@ -119,28 +122,36 @@ void showall()
     cout << setfill('*') << setw(SCREEN_WIDTH + 1) << " " << setfill(' ')
          << endl;
     cout << endl;
-
+    vector<vector<string>> content;
+    vector<string> row;
+     
     f2.open("newdata.csv", ios::in | ios::out);
-    string str1;
-    istringstream stream;
+    string str1,str2;
+    
     while (getline(f2, str1))
     {
-        stream.str(str1);
+        row.clear();
+        stringstream str(str1);
 
-        string str2{};
+        
 
-        while (getline(stream, str2, ','))
+        while (getline(str, str2, ','))
         {
-            cout << str2 << "\t";
-            if (str2 == "f4" || str2 == "badmiton" || str2 == "\n")
-            {
-
-                break;
-            }
+           row.push_back(str2);
+           
         }
+        content.push_back(row);
         cout << endl;
     }
     f2.close();
+    for(int i=0;i<content.size();i++)
+    {
+        for(int j=0;j<content[i].size();j++)
+        {
+            cout<<content[i][j]<<"\t";
+        }
+        cout<<endl;
+    }
 
     cout << setfill('*') << setw(SCREEN_WIDTH + 1) << " " << setfill(' ')
          << endl;
@@ -265,20 +276,27 @@ void search_particulars()
     f2.open("newdata.csv", ios::in);
     string str1;
     istringstream stream;
+    vector<vector<string>> content;
+    vector<string> row;
     while (getline(f2, str1))
     {
         stream.str(str1);
-
+        row.clear();
         string str2{};
-        if (str1.substr(0, str1.find_first_of(",")) == number)
-        {
-
+        
             while (getline(stream, str2, ','))
             {
-                cout << str2 << "\t";
+                row.push_back(str2);
+            }
+            if(row[0]==number)
+            {
+                for(int i=0;i<row.size();i++)
+                {
+                    cout<<row[i]<<"\t";
+                }
             }
             cout << endl;
-        }
+        
     }
     f2.close();
 
@@ -389,11 +407,14 @@ void managementactivities()
         int x2 = count_facility("golf");
         int x3 = count_facility("badmiton");
         int x4 = count_facility("tennis");
-        cout<<"total:"<<count()<<endl;
-        cout<<"gym:"<<count_facility("gym")<<endl;
-        cout<<"golf:"<<count_facility("golf")<<endl;
-        cout<<"badmiton:"<<count_facility("badmiton")<<endl;
-        cout<<"tennis:"<<count_facility("tennis")<<endl;
+        cout<<"total:"<<40-count()<<endl;
+        cout<<"gym:"<<10-count_facility("gym")<<endl;
+        cout<<"golf:"<<10-count_facility("golf")<<endl;
+        cout<<"badmiton:"<<10-count_facility("badmiton")<<endl;
+        cout<<"tennis:"<<10-count_facility("tennis")<<endl;
+        cout<<endl;
+        cout << setfill('*') << setw(SCREEN_WIDTH + 1) << " " << setfill(' ')
+         << endl;
 
         break;
     }
